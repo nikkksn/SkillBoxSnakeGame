@@ -66,7 +66,6 @@ void ASnakeBase::AddSnakeElement(int ElementsNum)
 		}
 		else
 		{
-			// Начальная позиция для первого элемента змейки
 			NewLocation = GetActorLocation();
 		}
 
@@ -113,8 +112,6 @@ void ASnakeBase::Move()
 
 	SnakeElements[0]->AddActorWorldOffset(MovementVector);
 	SnakeElements[0]->ToggleCollision();
-
-	// Разрешаем изменение направления после обновления позиции
 	bCanChangeDirection = true;
 }
 
@@ -129,17 +126,12 @@ void ASnakeBase::SnakeElementOverlap(ASnakeElementBase* OverlappedElement, AActo
 		if (IInteractableInterface)
 		{
 			IInteractableInterface->Interact(this, bIsFirst);
-
-			// Проверяем, является ли объект едой
 			if (Other->IsA<AFood>())
 			{
-				// Генерируем случайное число от 0 до 1
 				float RandomValue = FMath::FRand();
-				// Если случайное число меньше или равно 0.5 (50% вероятность)
 				if (RandomValue <= 0.5f)
 				{
-					// Увеличиваем скорость змейки в 2 раза
-					ChangeMovementSpeed(2.0f);
+					ChangeMovementSpeed(1.5f);
 				}
 			}
 		}
